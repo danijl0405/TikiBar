@@ -1,0 +1,9 @@
+# Vídeos pesados fuera del repo (cada commit binario se queda en el historial).
+# Quien clone debe colocar su propio hero.mp4 aquí, o sobrescribir
+# TIKI_HERO_VIDEO en el .env con una URL externa.
+# El README y el poster ligero sí se versionan.
+*.mp4
+*.webm
+*.mov
+*.m4v
+!.gitignore
