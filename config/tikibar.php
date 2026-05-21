@@ -31,4 +31,17 @@ return [
 
     'hero_video'  => env('TIKI_HERO_VIDEO', '/videos/hero.mp4'),
     'hero_poster' => env('TIKI_HERO_POSTER', '/videos/hero-poster.jpg'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Turnos de reserva
+    |--------------------------------------------------------------------------
+    |
+    | Tandas de reserva cada 1h30. Cada mesa admite una reserva por turno;
+    | el turno siguiente de esa mesa queda libre de nuevo. Las horas deben
+    | ir en formato "H:i".
+    |
+    */
+
+    'turns' => ['12:30', '14:00', '15:30', '17:00', '18:30', '20:00', '21:30', '23:00'],
 ];

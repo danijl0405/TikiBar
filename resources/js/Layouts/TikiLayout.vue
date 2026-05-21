@@ -4,7 +4,7 @@ import { computed } from 'vue';
 
 const page = usePage();
 
-const auth = computed(() => page.props.auth as { user: { id: number; name: string } | null });
+const auth = computed(() => page.props.auth as { user: { id: number; name: string; is_admin?: boolean } | null });
 const tiki = computed(() => page.props.tiki as { phone: string; address: string; email: string });
 const flash = computed(() => page.props.flash as { success?: string; error?: string });
 
@@ -38,6 +38,13 @@ function logout() {
                     </a>
 
                     <template v-if="auth.user">
+                        <Link
+                            v-if="auth.user.is_admin"
+                            href="/admin"
+                            class="rounded-full bg-tiki-night px-3 py-1.5 text-sm font-medium text-tiki-sand shadow hover:bg-tiki-night/80"
+                        >
+                            Admin
+                        </Link>
                         <Link
                             href="/reservas"
                             class="rounded-full px-3 py-1.5 text-sm font-medium text-tiki-night hover:bg-tiki-bamboo/20"

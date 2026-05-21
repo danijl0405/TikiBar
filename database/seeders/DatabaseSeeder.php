@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name'     => 'Tiki Admin',
                 'phone'    => '+34 952 00 00 00',
+                'is_admin' => true,
                 'password' => Hash::make('tikibar123'),
             ],
         );
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name'     => 'Antonio Malagueño',
                 'phone'    => '+34 600 11 22 33',
+                'is_admin' => false,
                 'password' => Hash::make('password'),
             ],
         );

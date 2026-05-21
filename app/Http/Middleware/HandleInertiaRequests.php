@@ -27,7 +27,7 @@ class HandleInertiaRequests extends Middleware
                 'heroPoster' => config('tikibar.hero_poster'),
             ],
             'auth' => [
-                'user' => $request->user()?->only(['id', 'name', 'email', 'phone']),
+                'user' => $request->user()?->only(['id', 'name', 'email', 'phone', 'is_admin']),
             ],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
