@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TikiLayout from '@/Layouts/TikiLayout.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
+import TikiLayout from '@/Layouts/TikiLayout.vue';
 
 interface Reservation {
     id: number;
@@ -40,7 +40,7 @@ const statusStyles: Record<string, string> = {
         <header class="mb-6 flex flex-wrap items-end justify-between gap-3">
             <div>
                 <p class="text-sm font-semibold uppercase tracking-widest text-tiki-leaf">Tus reservas</p>
-                <h1 class="mt-1 text-3xl font-bold text-tiki-night">Mis mesas en el Tiki 🍹</h1>
+                <h1 class="mt-1 text-3xl font-bold text-tiki-night">Mis mesas en el Tiki</h1>
             </div>
             <Link
                 href="/reservas/nueva"
@@ -51,8 +51,7 @@ const statusStyles: Record<string, string> = {
         </header>
 
         <div v-if="reservations.length === 0" class="rounded-2xl border-2 border-dashed border-tiki-bamboo/40 bg-white/60 p-10 text-center">
-            <p class="text-4xl">🥥</p>
-            <p class="mt-2 font-semibold text-tiki-night">Todavía no tienes reservas</p>
+            <p class="font-semibold text-tiki-night">Todavía no tienes reservas</p>
             <p class="text-sm text-tiki-bamboo">Reserva tu primera mesa y vente a disfrutar de Málaga.</p>
             <Link
                 href="/reservas/nueva"
@@ -108,7 +107,7 @@ const statusStyles: Record<string, string> = {
                 </dl>
 
                 <p v-if="r.notes" class="mt-3 rounded bg-tiki-sand px-3 py-2 text-xs text-tiki-night/80">
-                    📝 {{ r.notes }}
+                    {{ r.notes }}
                 </p>
 
                 <div class="mt-4 flex justify-end">

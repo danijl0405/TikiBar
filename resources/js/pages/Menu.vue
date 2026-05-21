@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TikiLayout from '@/Layouts/TikiLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import TikiLayout from '@/Layouts/TikiLayout.vue';
 
 interface MenuItem {
     id: number;
@@ -31,7 +31,7 @@ defineProps<{
     <TikiLayout>
         <header class="mb-8 text-center">
             <p class="text-sm font-semibold uppercase tracking-widest text-tiki-leaf">Tiki Bar</p>
-            <h1 class="mt-2 text-4xl font-bold text-tiki-night">Nuestra carta 🥥</h1>
+            <h1 class="mt-2 text-4xl font-bold text-tiki-night">Nuestra carta</h1>
             <p class="mx-auto mt-3 max-w-xl text-tiki-bamboo">
                 Producto fresco de la lonja de Málaga, brasa de leña de olivo y los mejores cócteles tropicales.
             </p>
@@ -75,7 +75,6 @@ defineProps<{
                         :key="item.id"
                         class="flex items-start gap-3 py-3"
                     >
-                        <span class="text-2xl leading-none">{{ item.emoji ?? '🍽️' }}</span>
                         <div class="flex-1">
                             <div class="flex items-baseline justify-between gap-2">
                                 <p class="font-medium text-tiki-night">

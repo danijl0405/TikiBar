@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import TikiLayout from '@/Layouts/TikiLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { computed, watch } from 'vue';
+import TikiLayout from '@/Layouts/TikiLayout.vue';
 
 const props = defineProps<{
     user: { name: string; phone: string | null };
@@ -29,11 +29,15 @@ watch(
     (newCount) => {
         const count = Math.max(0, Number(newCount));
         const current = [...form.ages];
+
         if (current.length < count) {
-            while (current.length < count) current.push(5);
+            while (current.length < count) {
+current.push(5);
+}
         } else if (current.length > count) {
             current.length = count;
         }
+
         form.ages = current;
     },
     { immediate: true },
@@ -50,7 +54,7 @@ function submit() {
         <div class="mx-auto max-w-2xl">
             <header class="mb-6">
                 <p class="text-sm font-semibold uppercase tracking-widest text-tiki-leaf">Reserva</p>
-                <h1 class="mt-1 text-3xl font-bold text-tiki-night">Reserva tu mesa 🌴</h1>
+                <h1 class="mt-1 text-3xl font-bold text-tiki-night">Reserva tu mesa</h1>
                 <p class="mt-1 text-sm text-tiki-bamboo">
                     Cuéntanos cuántos sois, las edades de los peques y elige tu zona favorita.
                 </p>
@@ -193,7 +197,7 @@ function submit() {
                     :disabled="form.processing"
                     class="w-full rounded-full bg-tiki-sunset px-4 py-3 font-semibold text-white shadow hover:bg-tiki-sunset-dark disabled:opacity-60"
                 >
-                    {{ form.processing ? 'Reservando…' : 'Reservar mesa 🍽️' }}
+                    {{ form.processing ? 'Reservando…' : 'Reservar mesa' }}
                 </button>
             </form>
         </div>

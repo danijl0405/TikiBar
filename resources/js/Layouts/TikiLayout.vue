@@ -18,7 +18,6 @@ function logout() {
         <header class="border-b-2 border-tiki-bamboo/40 bg-tiki-sand/90 backdrop-blur sticky top-0 z-30">
             <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
                 <Link href="/" class="flex items-center gap-2 text-2xl font-semibold tracking-tight text-tiki-sunset-dark hover:text-tiki-sunset">
-                    <span class="text-3xl">🗿</span>
                     <span>Tiki Bar</span>
                     <span class="ml-1 hidden text-xs font-medium uppercase tracking-widest text-tiki-leaf sm:inline">Málaga</span>
                 </Link>
@@ -35,7 +34,7 @@ function logout() {
                         :href="`tel:${tiki.phone.replace(/\s+/g, '')}`"
                         class="hidden items-center gap-1 rounded-full bg-tiki-leaf px-3 py-1.5 text-sm font-medium text-white shadow hover:bg-tiki-leaf-dark sm:inline-flex"
                     >
-                        📞 {{ tiki.phone }}
+                        {{ tiki.phone }}
                     </a>
 
                     <template v-if="auth.user">
@@ -74,12 +73,12 @@ function logout() {
 
         <div v-if="flash.success" class="mx-auto mt-4 w-full max-w-6xl px-4 sm:px-6">
             <div class="rounded-lg border border-tiki-leaf/30 bg-tiki-leaf/10 px-4 py-3 text-sm font-medium text-tiki-leaf-dark">
-                ✅ {{ flash.success }}
+                {{ flash.success }}
             </div>
         </div>
         <div v-if="flash.error" class="mx-auto mt-4 w-full max-w-6xl px-4 sm:px-6">
             <div class="rounded-lg border border-tiki-sunset/40 bg-tiki-sunset/10 px-4 py-3 text-sm font-medium text-tiki-sunset-dark">
-                ⚠️ {{ flash.error }}
+                {{ flash.error }}
             </div>
         </div>
 
@@ -90,16 +89,16 @@ function logout() {
         <footer class="border-t-2 border-tiki-bamboo/40 bg-tiki-night text-tiki-sand">
             <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6">
                 <div>
-                    <p class="text-lg font-semibold">🗿 Tiki Bar Málaga</p>
+                    <p class="text-lg font-semibold">Tiki Bar Málaga</p>
                     <p class="mt-2 text-sm opacity-80">{{ tiki.address }}</p>
                 </div>
                 <div>
                     <p class="font-semibold">Reservas</p>
                     <a :href="`tel:${tiki.phone.replace(/\s+/g, '')}`" class="mt-1 block text-sm hover:underline">
-                        📞 {{ tiki.phone }}
+                        {{ tiki.phone }}
                     </a>
                     <a :href="`mailto:${tiki.email}`" class="mt-1 block text-sm hover:underline">
-                        ✉️ {{ tiki.email }}
+                        {{ tiki.email }}
                     </a>
                 </div>
                 <div>
@@ -109,7 +108,7 @@ function logout() {
                 </div>
             </div>
             <div class="border-t border-tiki-sand/10 py-3 text-center text-xs opacity-70">
-                © {{ new Date().getFullYear() }} Tiki Bar Málaga — Hecho con ❤️ a la sombra de las palmeras.
+                © {{ new Date().getFullYear() }} Tiki Bar Málaga — Hecho por Daniel Jimenez.
             </div>
         </footer>
     </div>

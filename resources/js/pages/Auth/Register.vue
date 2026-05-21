@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TikiLayout from '@/Layouts/TikiLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import TikiLayout from '@/Layouts/TikiLayout.vue';
 
 const form = useForm({
     name: '',
@@ -22,7 +22,7 @@ function submit() {
     <TikiLayout>
         <div class="mx-auto max-w-md">
             <div class="rounded-3xl border border-tiki-bamboo/30 bg-white/90 p-8 shadow-lg">
-                <h1 class="text-3xl font-bold text-tiki-night">Únete al Tiki Bar 🍍</h1>
+                <h1 class="text-3xl font-bold text-tiki-night">Únete al Tiki Bar</h1>
                 <p class="mt-1 text-sm text-tiki-bamboo">
                     Regístrate para reservar mesa y recibir las novedades del chiringuito.
                 </p>
