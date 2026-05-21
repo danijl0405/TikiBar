@@ -1,6 +1,6 @@
-# Tiki Bar 🗿
+# Tiki Bar
 
-> Chiringuito malagueño hecho web. Espetos al fuego, cócteles tropicales y la mejor puesta de sol del Mediterráneo.
+> Chiringuito malagueño hecho web. Espetos a la barca, cócteles tropicales y la mejor puesta de sol del Mediterráneo.
 
 Aplicación completa para el restaurante **Tiki Bar** (Málaga): home cinematográfica con vídeo de fondo y storytelling al hacer scroll, carta navegable, registro de clientes, login y reserva de mesas con asignación automática por aforo y zona.
 
@@ -23,36 +23,6 @@ Aplicación completa para el restaurante **Tiki Bar** (Málaga): home cinematogr
 - [Node.js](https://nodejs.org/) 20+ y npm
 - MySQL 8 (o MariaDB 10.6+) corriendo en local
 - `ffmpeg` (opcional, solo si quieres regenerar el poster del vídeo)
-
----
-
-## Puesta en marcha
-
-```bash
-# 1. Dependencias
-composer install
-npm install
-
-# 2. Variables de entorno
-cp .env.example .env
-php artisan key:generate
-
-# 3. Crea la base de datos en MySQL
-#    Por ejemplo desde el cliente de MySQL:
-#    CREATE DATABASE tikidb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-#    Después ajusta DB_USERNAME / DB_PASSWORD en .env
-
-# 4. Migraciones + semillas (carta malagueña, mesas y usuarios)
-php artisan migrate --seed
-
-# 5. Compila los assets
-npm run build
-
-# 6. Arranca el servidor
-php artisan serve            # http://127.0.0.1:8000
-#  o, para desarrollo con hot reload + cola + vite a la vez:
-composer dev
-```
 
 ---
 
@@ -168,15 +138,15 @@ TIKI_EMAIL="hola@tikibar.es"
 TIKI_HERO_VIDEO="/videos/hero.mp4"
 TIKI_HERO_POSTER="/videos/hero-poster.jpg"
 ```
-
 El resto son las defaults de Laravel (sesiones en BD, cache en BD, queue en BD).
 
 ---
 
 ## Créditos
 
-- Diseño y código: equipo Tiki Bar.
+- Diseño y código: Daniel Jimenez.
 - Vídeo de portada por defecto: [Pixabay en Pexels](https://www.pexels.com/video/beach-waves-and-sunset-855633/).
-- Iconos: emoji nativos del sistema.
 
-Hecho con ❤️ a la sombra de las palmeras en Málaga.
+
+Hecho por Daniel Jimenez.
+
