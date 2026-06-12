@@ -3,15 +3,13 @@ set -euo pipefail
 
 cd /app
 
-if [ -n "${RENDER_EXTERNAL_URL:-}" ]; then
-  export APP_URL="$RENDER_EXTERNAL_URL"
-fi
+# No usar el .env generado en el build; Render inyecta las variables reales.
+rm -f .env
+rm -f bootstrap/cache/config.php bootstrap/cache/routes-v7.php 2>/dev/null || true
+
+export APP_URL="${RENDER_EXTERNAL_URL:-http://127.0.0.1:${PORT:-10000}}"
 
 php artisan config:cache
-php artisan route:cache
 php artisan view:cache
 
-php artisan migrate --force --no-interaction
-php artisan db:seed --force --no-interaction
-
-php artisan serve --host=0.0.0.0 --port="${PORT:-10000}"
+exec php artisan serve --host=0.0.0.0 --port="${PORT:-10000}"
