@@ -4,8 +4,9 @@ FROM php:8.4-cli-bookworm AS build
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates curl gnupg git unzip zip \
-    libzip-dev libpq-dev libonig-dev libxml2-dev \
-  && docker-php-ext-install pdo pdo_pgsql zip bcmath mbstring xml dom \
+    libzip-dev libpq-dev libonig-dev libxml2-dev libicu-dev \
+  && docker-php-ext-configure intl \
+  && docker-php-ext-install pdo pdo_pgsql zip bcmath mbstring xml dom intl \
   && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
   && apt-get install -y --no-install-recommends nodejs \
   && rm -rf /var/lib/apt/lists/*
@@ -34,8 +35,9 @@ RUN node --version && npm --version \
 FROM php:8.4-cli-bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpq-dev libonig-dev libxml2-dev \
-  && docker-php-ext-install pdo pdo_pgsql bcmath mbstring xml dom \
+    libpq-dev libonig-dev libxml2-dev libicu-dev \
+  && docker-php-ext-configure intl \
+  && docker-php-ext-install pdo pdo_pgsql bcmath mbstring xml dom intl \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
