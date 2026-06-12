@@ -2,14 +2,12 @@
 
 FROM php:8.4-cli-bookworm AS build
 
-COPY --from=node:22-bookworm /usr/local/bin/node /usr/local/bin/node
-COPY --from=node:22-bookworm /usr/local/bin/npm /usr/local/bin/npm
-COPY --from=node:22-bookworm /usr/local/bin/npx /usr/local/bin/npx
-COPY --from=node:22-bookworm /usr/local/lib/node_modules /usr/local/lib/node_modules
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git unzip zip libzip-dev libpq-dev libonig-dev libxml2-dev \
+    ca-certificates curl gnupg git unzip zip \
+    libzip-dev libpq-dev libonig-dev libxml2-dev \
   && docker-php-ext-install pdo pdo_pgsql zip bcmath mbstring xml dom \
+  && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+  && apt-get install -y --no-install-recommends nodejs \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
