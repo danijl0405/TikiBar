@@ -2,8 +2,14 @@
 
 FROM php:8.4-cli-bookworm AS build
 
+# Vite 8 y laravel-vite-plugin requieren Node >= 20.19 (Debian apt trae Node 18).
+COPY --from=node:22-bookworm /usr/local/bin/node /usr/local/bin/node
+COPY --from=node:22-bookworm /usr/local/bin/npm /usr/local/bin/npm
+COPY --from=node:22-bookworm /usr/local/bin/npx /usr/local/bin/npx
+COPY --from=node:22-bookworm /usr/local/lib/node_modules /usr/local/lib/node_modules
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git unzip zip libzip-dev libpq-dev libonig-dev libxml2-dev nodejs npm \
+    git unzip zip libzip-dev libpq-dev libonig-dev libxml2-dev \
   && docker-php-ext-install pdo pdo_pgsql zip bcmath mbstring xml dom \
   && rm -rf /var/lib/apt/lists/*
 
@@ -21,7 +27,9 @@ RUN cp .env.example .env \
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
-RUN npm ci && npm run build
+RUN node --version && npm --version \
+  && npm ci \
+  && npm run build
 
 FROM php:8.4-cli-bookworm
 
