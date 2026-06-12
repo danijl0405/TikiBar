@@ -26,8 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->reportable(function (\Throwable $throwable): void {
-            if (app()->environment('production')) {
-                error_log('[TikiBar] '.$throwable->getMessage());
-            }
+            error_log('[TikiBar] '.$throwable->getMessage());
+            error_log('[TikiBar] '.$throwable->getTraceAsString());
         });
     })->create();

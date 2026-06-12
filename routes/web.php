@@ -9,7 +9,28 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ReservationController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/render-check', function () {
+    $checks = [
+        'manifest' => file_exists(public_path('build/manifest.json')),
+        'fonts_manifest' => file_exists(public_path('build/fonts-manifest.json')),
+        'session_driver' => config('session.driver'),
+        'db_connection' => config('database.default'),
+        'db_url_set' => (bool) (config('database.connections.pgsql.url') ?: env('DB_URL') ?: env('DATABASE_URL')),
+    ];
+
+    try {
+        DB::connection()->getPdo();
+        $checks['db'] = 'ok';
+        $checks['categories'] = \App\Models\Category::count();
+    } catch (Throwable $e) {
+        $checks['db'] = $e->getMessage();
+    }
+
+    return response()->json($checks);
+});
 
 Route::get('/', HomeController::class)->name('home');
 Route::get('/carta', MenuController::class)->name('menu');

@@ -1,5 +1,4 @@
 # Tiki Bar — app completa en Render (PHP + PostgreSQL)
-# Importa este Blueprint en https://dashboard.render.com/blueprints
 
 databases:
   - name: tikibar-db
@@ -13,18 +12,19 @@ services:
     plan: free
     region: frankfurt
     healthCheckPath: /up
-    preDeployCommand: php artisan migrate --force --no-interaction && php artisan db:seed --force --no-interaction
     envVars:
       - key: APP_NAME
         value: Tiki Bar
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        value: false
+        value: true
       - key: APP_KEY
         generateValue: true
       - key: LOG_CHANNEL
         value: stderr
+      - key: LOG_LEVEL
+        value: debug
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_URL
@@ -36,11 +36,11 @@ services:
           name: tikibar-db
           property: connectionString
       - key: SESSION_DRIVER
-        value: database
+        value: cookie
       - key: SESSION_SECURE_COOKIE
         value: true
       - key: CACHE_STORE
-        value: database
+        value: file
       - key: QUEUE_CONNECTION
         value: sync
       - key: APP_LOCALE
