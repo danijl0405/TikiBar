@@ -38,5 +38,10 @@ php artisan db:seed --force --no-interaction
 echo "==> Verificando datos..."
 php artisan tinker --execute="echo 'categories='.App\Models\Category::count().PHP_EOL;"
 
+if [ -z "${TIKI_HERO_VIDEO:-}" ] && [ ! -f public/videos/hero.mp4 ]; then
+  echo "AVISO: No hay hero.mp4 ni TIKI_HERO_VIDEO. La home usará el degradado de respaldo."
+  echo "       Sube el MP4 a un CDN y define TIKI_HERO_VIDEO en Render → Environment."
+fi
+
 echo "==> Arrancando servidor en el puerto ${PORT:-10000}..."
 exec php artisan serve --host=0.0.0.0 --port="${PORT:-10000}"
