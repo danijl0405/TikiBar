@@ -12,6 +12,16 @@ php artisan view:clear --no-interaction 2>/dev/null || true
 
 export APP_URL="${RENDER_EXTERNAL_URL:-http://127.0.0.1:${PORT:-10000}}"
 
+# Render generateValue devuelve base64 sin el prefijo "base64:" que Laravel requiere.
+if [ -z "${APP_KEY:-}" ]; then
+  export APP_KEY="base64:$(openssl rand -base64 32)"
+elif [[ ! "$APP_KEY" =~ ^base64: ]]; then
+  export APP_KEY="base64:${APP_KEY}"
+fi
+
+echo "==> Comprobando APP_KEY..."
+php artisan tinker --execute="Illuminate\Support\Facades\Crypt::encryptString('ok'); echo 'app_key_ok'.PHP_EOL;"
+
 echo "==> Comprobando assets de Vite..."
 test -f public/build/manifest.json
 test -f public/build/fonts-manifest.json
