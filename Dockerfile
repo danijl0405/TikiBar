@@ -3,27 +3,31 @@
 FROM php:8.3-cli-bookworm AS build
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git unzip zip libzip-dev libpq-dev nodejs npm \
-  && docker-php-ext-install pdo pdo_pgsql zip bcmath \
+    git unzip zip libzip-dev libpq-dev libonig-dev libxml2-dev nodejs npm \
+  && docker-php-ext-install pdo pdo_pgsql zip bcmath mbstring xml dom \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
-COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --no-scripts --no-interaction --prefer-dist
+
+COPY . .
 
 RUN cp .env.example .env \
   && php artisan key:generate --force --no-interaction
+
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
 RUN npm ci && npm run build
 
 FROM php:8.3-cli-bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpq-dev \
-  && docker-php-ext-install pdo pdo_pgsql bcmath \
+    libpq-dev libonig-dev libxml2-dev \
+  && docker-php-ext-install pdo pdo_pgsql bcmath mbstring xml dom \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
