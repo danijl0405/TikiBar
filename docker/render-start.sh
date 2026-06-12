@@ -39,9 +39,11 @@ echo "==> Verificando datos..."
 php artisan tinker --execute="echo 'categories='.App\Models\Category::count().PHP_EOL;"
 
 if [ -z "${TIKI_HERO_VIDEO:-}" ] && [ ! -f public/videos/hero.mp4 ]; then
-  echo "AVISO: No hay hero.mp4 ni TIKI_HERO_VIDEO. La home usará el degradado de respaldo."
-  echo "       Sube el MP4 a un CDN y define TIKI_HERO_VIDEO en Render → Environment."
+  export TIKI_HERO_VIDEO="https://videos.pexels.com/video-files/855633/855633-hd_1920_1080_25fps.mp4"
+  echo "AVISO: Usando vídeo por defecto de Pexels (#855633)."
 fi
+
+echo "==> Vídeo de portada: ${TIKI_HERO_VIDEO:-/videos/hero.mp4}"
 
 echo "==> Arrancando servidor en el puerto ${PORT:-10000}..."
 exec php artisan serve --host=0.0.0.0 --port="${PORT:-10000}"

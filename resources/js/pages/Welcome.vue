@@ -27,18 +27,38 @@ const tiki = computed(
 );
 
 const videoError = ref(false);
+const videoRef = ref<HTMLVideoElement | null>(null);
 const scrolled = ref(false);
 const visible = ref<Set<number>>(new Set());
 
 let observer: IntersectionObserver | null = null;
 let onScroll: (() => void) | null = null;
 
+async function startHeroVideo() {
+    const el = videoRef.value;
+    if (!el || videoError.value) {
+        return;
+    }
+
+    el.muted = true;
+
+    try {
+        await el.play();
+    } catch {
+        // Autoplay bloqueado: el poster sigue visible hasta interacción.
+    }
+}
+
 onMounted(() => {
+    document.body.classList.add('tikibar-welcome');
+
     onScroll = () => {
         scrolled.value = window.scrollY > 80;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    void startHeroVideo();
 
     observer = new IntersectionObserver(
         (entries) => {
@@ -62,11 +82,12 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
+    document.body.classList.remove('tikibar-welcome');
     observer?.disconnect();
 
     if (onScroll) {
-window.removeEventListener('scroll', onScroll);
-}
+        window.removeEventListener('scroll', onScroll);
+    }
 });
 
 function isVisible(i: number) {
@@ -92,10 +113,11 @@ const telHref = computed(() => `tel:${tiki.value.phone.replace(/\s+/g, '')}`);
         <meta name="theme-color" content="#1b1b18" />
     </Head>
 
-    <!-- Fondo de vídeo fijo a pantalla completa -->
-    <div class="fixed inset-0 -z-10 overflow-hidden bg-tiki-night">
+    <!-- Fondo de vídeo fijo a pantalla completa (z-0; -z-10 quedaba detrás del fondo del body) -->
+    <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-tiki-night" aria-hidden="true">
         <video
-            v-if="!videoError"
+            v-show="!videoError"
+            ref="videoRef"
             class="absolute inset-0 h-full w-full object-cover"
             :src="tiki.heroVideo"
             :poster="tiki.heroPoster"
@@ -104,11 +126,12 @@ const telHref = computed(() => `tel:${tiki.value.phone.replace(/\s+/g, '')}`);
             muted
             playsinline
             preload="auto"
+            @canplay="startHeroVideo"
             @error="videoError = true"
         />
         <!-- Respaldo animado si el vídeo no carga -->
         <div
-            v-else
+            v-if="videoError"
             class="absolute inset-0 animate-[hero-fallback_18s_ease_infinite] bg-[linear-gradient(120deg,#0a7ea4,#ff6b35,#ff9d76,#1f5436)] bg-[length:300%_300%]"
         />
         <!-- Capa oscura para legibilidad -->
@@ -164,7 +187,7 @@ const telHref = computed(() => `tel:${tiki.value.phone.replace(/\s+/g, '')}`);
         </div>
     </header>
 
-    <main class="relative text-tiki-sand">
+    <main class="relative z-10 text-tiki-sand">
         <!-- HERO -->
         <section class="relative flex min-h-screen items-center justify-center px-4 pt-24 pb-16 text-center">
             <div

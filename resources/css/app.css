@@ -37,3 +37,8 @@ body {
         var(--color-tiki-sand);
     min-height: 100vh;
 }
+
+/* Home: el vídeo fijo va en z-0; el fondo del body tapaba capas con z-index negativo. */
+body.tikibar-welcome {
+    background: var(--color-tiki-night);
+}

@@ -19,6 +19,8 @@ Route::get('/render-check', function () {
         'session_driver' => config('session.driver'),
         'db_connection' => config('database.default'),
         'db_url_set' => (bool) (config('database.connections.pgsql.url') ?: env('DB_URL') ?: env('DATABASE_URL')),
+        'hero_video' => config('tikibar.hero_video'),
+        'hero_poster_exists' => file_exists(public_path('videos/hero-poster.jpg')),
     ];
 
     try {
